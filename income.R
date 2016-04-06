@@ -34,7 +34,7 @@ ggplot(poor_destinations, aes(x=`End Station`, y=`Mean Income`)) +
   geom_bar(stat='identity', fill='steelblue') +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   ggtitle('Trip Destinations, Low Income')
-ggsave('high_income_destinations.png')
+ggsave('low_income_destinations.png')
 # Extract and plot zip codes of people goint to Grant/Columbus
 grant_ave_zips <- trip_data %>% 
   filter(`End Station` == "Grant Avenue at Columbus Avenue") %>%
