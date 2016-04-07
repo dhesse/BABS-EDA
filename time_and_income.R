@@ -13,7 +13,9 @@ trips_with_demographics <- trip_data %>%
   inner_join(census_data, c("Zip Code" = "GEO.id2"))
 # Clean up the data a little ...
 income_by_start_hour <- trips_with_demographics %>%
-  transmute(`Median Income`=Total, Hour = hour(`Start Date`)) %>%
+  transmute(`Median Income`=Total,
+            Hour = hour(`Start Date`) +
+              minute(`Start Date`) / 60) %>%
   na.omit()
 # And plot it.
 ggplot(income_by_start_hour, aes(x=Hour, y=`Median Income`)) +
@@ -26,4 +28,4 @@ print(summary(afternoon_model))
 morning_trips <- income_by_start_hour %>%
   filter(Hour > 4, Hour < 10)
 morning_model <- lm(`Median Income`~Hour, morning_trips)
-summary(morning_model)
+print(summary(morning_model))
